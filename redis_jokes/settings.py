@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-%-#@=e&bonj(2h!9a3o4qoj57qpu&-8$hlw2ou81+!c@ji8bom'
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -78,9 +78,16 @@ TEMPLATES = [
 WSGI_APPLICATION = 'redis_jokes.wsgi.application'
 ASGI_APPLICATION = 'redis_jokes.asgi.application'
 
-# Celery
+"""
+---Celery---
+
+It generates a 'None' print output:
+[2022-04-21 14:19:16,476: INFO/ForkPoolWorker-3] Task jokes.tasks.get_joke[f2e848a2-1551-4c2a-a111-94a5a25ae545] succeeded in 0.38061770000786055s: None
+
+Read documentation to solve the mystery.
+"""
 CELERY_BROKER_URL = os.environ.get("CELERY_BROKER", "redis://redis:6379/0")
-# CELERY_RESULT_BACKEND = os.environ.get("CELERY_BACKEND", "redis://redis:6379/0")
+CELERY_RESULT_BACKEND = os.environ.get("CELERY_BACKEND", "redis://redis:6379/0")
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
