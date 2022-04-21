@@ -1,3 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
+from django.views.generic import ListView
 
-# Create your views here.
+
+def list_jokes(request):
+    return render(request, "jokes/index.html")
